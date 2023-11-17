@@ -1,0 +1,30 @@
+---
+# Source: gateway/templates/hpa.yaml
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: ist1
+  namespace: istio-system
+  labels:
+    helm.sh/chart: gateway-1.19.3
+    app: ist1
+    istio: ist1
+    app.kubernetes.io/version: "1.19.3"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ist1
+  annotations:
+    {}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ist1
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          averageUtilization: 80
+          type: Utilization

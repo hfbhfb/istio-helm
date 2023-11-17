@@ -1,0 +1,3 @@
+---
+# Source: istiod/templates/telemetryv2_1.19.yaml
+# Note: http stats filter is wasm enabled only in sidecars.
