@@ -1,6 +1,12 @@
 
 ## istio-helm
-make install-base
+1. make install-base
+
+2. make install-step3-bookinfo # 安装bookinfo相关的内容, 会在命名空间先label istio注入标签
+
+3. make install-step4-addons #安装kali
+
+4. make uninstall-all  # 卸载全部
 
 ## helm安装istio 
 https://istio.io/latest/docs/setup/install/helm/
@@ -13,5 +19,14 @@ Warning  FailedCreatePodSandBox  2m35s (x13 over 2m48s)  kubelet            Fail
 ## bookinfo 采用的版本如下， 目录为 bookinfo-1.15.7 
 https://github.com/istio/istio/tree/1.15.7/samples/bookinfo
 
+
+
+
+### 测试1 bookinfo
+http://192.168.255.246:30711
+
+
+## 测试2 访问kali
+http://192.168.255.246:30112
 
 

@@ -6,6 +6,10 @@ Space=istio-system
 SBookInfo=ns-bookinfo
 SAddon=istio-system
 
+tmp:
+	cd a-学习bookinfo/first-tov1;make
+
+# 只编译模板，看有什么内容
 template: base-template istiod-template
 	@echo "template"
 
@@ -24,8 +28,10 @@ gateway-template:
 	touch values-gateway.yaml
 	helm template gateway/ --namespace  ${Space} --values ./values-gateway.yaml --name-template ${helmAppName} --output-dir template-out-gateway-${helmAppName} --debug
 
+install: install-base
+	@echo "echo"
 
-
+# 真实的安装base
 install-base:
 	- kubectl create ns  ${Space}
 	- helm install base/ --namespace  ${Space} --values ./values-base.yaml --name-template ${helmAppName}-base
@@ -48,8 +54,8 @@ uninstall-step3-bookinfo:
 
 product-step3:
 	@echo "访问页面产生一些数据"
-	for i in $(seq 1 1000); do curl -s -o /dev/null "http://http://192.168.27.246:30711/productpage?u=normal"; done
-	for i in $(seq 1 1000); do curl -s -o /dev/null "http://192.168.27.246:30711/productpage?u=test"; done
+	for i in $(seq 1 1000); do curl -s -o /dev/null "http://192.168.168.246:30711/productpage?u=normal"; done
+	for i in $(seq 1 1000); do curl -s -o /dev/null "http://192.168.168.246:30711/productpage?u=test"; done
 	# for i in $(seq 1 100000); do curl -s -o /dev/null "http://192.168.1.211"; done
 
 install-step4-addons:
@@ -57,6 +63,12 @@ install-step4-addons:
 	@echo "https://istio.io/latest/zh/docs/ops/integrations/jaeger/"
 	@echo "https://istio.io/latest/zh/docs/tasks/observability/kiali/"
 	kubectl apply -f addons-1.15.7/  --namespace  ${SAddon}
+
+liststep4:
+	kubectl get all --namespace  ${SAddon}
+
+product-step4-curl:
+	@echo "访问kali http://192.168.168.246:30711/productpage?u=normal "
 
 uninstall-step4-addons:
 	-kubectl delete -f addons-1.15.7/  --namespace  ${SAddon}
@@ -83,3 +95,12 @@ all:
 	@echo "all"
 
 
+
+# ------------------------------------------
+# ------------------------------------------
+# 不安装gateway
+testinstall-base:
+	- kubectl create ns  ${Space}
+	- helm install base/ --namespace  ${Space} --values ./values-base.yaml --name-template ${helmAppName}-base
+	- helm install istiod/ --namespace  ${Space} --values ./values-istiod.yaml --name-template ${helmAppName}-istiod
+	# - helm install gateway/ --namespace  ${Space} --values ./values-gateway.yaml --name-template ${helmAppName}-gateway #会报错，需要升级centos内核
