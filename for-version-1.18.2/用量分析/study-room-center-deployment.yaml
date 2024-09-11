@@ -1,0 +1,133 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: study-room-center-deployment
+  namespace: app-master
+  labels:
+    app: study-room-center
+
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: study-room-center
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: study-room-center
+    spec:
+      volumes:
+        - name: volume-localtime
+          hostPath:
+            path: /etc/localtime
+            type: ''
+      containers:
+        - name: study-room-center
+          image: swr.cn-east-3.myhuaweicloud.com/yoyo/everyday-study-room-rpc:1.0.0
+          ports:
+            - containerPort: 7010
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: service-config
+            - configMapRef:
+                name: aliyun-oss-config
+          env:
+            - name: SERVICE_VERSION
+              value: '6'
+            - name: MYSQL_ROOT_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-username
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-password
+            - name: MYSQL_ROOT_LOG_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-log-username
+            - name: MYSQL_ROOT_LOG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-log-password
+            - name: REDIS_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: volume-localtime
+              mountPath: /etc/localtime
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 7010
+              scheme: HTTP
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - /bin/sh
+                  - '-c'
+                  - echo Hello from the postStart handler > /usr/share/deployment
+            preStop:
+              exec:
+                command:
+                  - /bin/sh
+                  - '-c'
+                  - nginx -s quit; while killall -0 nginx; do sleep 1; done
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          imagePullPolicy: Always
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 5
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      imagePullSecrets:
+        - name: default-secret
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
+status:
+  observedGeneration: 7
+  replicas: 1
+  updatedReplicas: 1
+  readyReplicas: 1
+  availableReplicas: 1
+  conditions:
+    - type: Available
+      status: 'True'
+      lastUpdateTime: '2024-09-11T02:51:26Z'
+      lastTransitionTime: '2024-09-11T02:51:26Z'
+      reason: MinimumReplicasAvailable
+      message: Deployment has minimum availability.
+    - type: Progressing
+      status: 'True'
+      lastUpdateTime: '2024-09-11T03:09:12Z'
+      lastTransitionTime: '2024-09-11T02:51:15Z'
+      reason: NewReplicaSetAvailable
+      message: ReplicaSet "study-room-center-deployment-644b7df68d" has successfully progressed.

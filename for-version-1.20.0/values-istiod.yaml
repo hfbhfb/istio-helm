@@ -1,0 +1,12 @@
+pilot:
+  # Can be a full hub/image:tag
+  image: swr.cn-north-4.myhuaweicloud.com/hfbbg4/pilot:1.20.0 # pilot
+
+
+global:
+  proxy:
+    image: swr.cn-north-4.myhuaweicloud.com/hfbbg4/proxyv2:1.20.0 # proxyv2
+
+  proxy_init:
+    # Base name for the proxy_init container, used to configure iptables.
+    image: swr.cn-north-4.myhuaweicloud.com/hfbbg4/proxyv2:1.20.0 # proxyv2

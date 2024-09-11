@@ -1,0 +1,615 @@
+metadata:
+  name: yoyo-hw.luxifakj.cn
+  namespace: app-master
+  uid: 7ecd29fc-3450-4403-bee6-d5e557701c99
+  resourceVersion: '27078584'
+  generation: 1
+  creationTimestamp: '2024-09-11T02:53:55Z'
+
+spec:
+  ingressClassName: cce
+  rules:
+    - host: yoyo-hw.luxifakj.cn
+      http:
+        paths:
+          - path: /rpcTimerApi/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-timer-center
+                port:
+                  number: 7900
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /rpcSocialApi/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-social-center
+                port:
+                  number: 7500
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /rpcSign/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-sign-center
+                port:
+                  number: 7030
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /rpcPayApi/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-payment-center
+                port:
+                  number: 7000
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /greenScanRpc/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-green-scan-center
+                port:
+                  number: 6000
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/yoyo/shop/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-shop-center
+                port:
+                  number: 6001
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/yoyo/life/giftDownloadV2
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/yoyo/dressingRoom
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/yoyo/activity/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/yoyo/activities
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/widget/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/webgo/getAreaMap
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/user/updateAddress
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-shop-center
+                port:
+                  number: 6001
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/user/task/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-task-center
+                port:
+                  number: 7800
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/user/statistics
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/user/showInfo
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/user/getCloseOrOpenPush
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/user/getAddressList
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-shop-center
+                port:
+                  number: 6001
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/user/delAddress
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-shop-center
+                port:
+                  number: 6001
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/user/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/turnplate/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-go-target-api-center
+                port:
+                  number: 8088
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/timetable/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-timetable-center
+                port:
+                  number: 8100
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/task/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-go-target-api-center
+                port:
+                  number: 8088
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/targetNew/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-target-center
+                port:
+                  number: 9003
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/target/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-target-center
+                port:
+                  number: 9003
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/style/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/studyRoom/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-study-room-center
+                port:
+                  number: 7010
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/statistics/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-study-room-center
+                port:
+                  number: 7010
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/signlog/remarkList
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/signlog/editRemark
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/signlog/delRemark
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/signlog/addRemark
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/signlog/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-target-center
+                port:
+                  number: 9003
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/shortcuts/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/report/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/remark/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/record
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/plan/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/orderNew/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-payment-center
+                port:
+                  number: 7000
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/oppo/getWatchList
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/oppo/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/news/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-news-center
+                port:
+                  number: 9001
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/mooddiary/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/medalActivity
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/login/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/index/getIndexPopUpWindow
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/focus/remarkList
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/focus/editRemark
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/focus/delRemark
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/focus/addRemark
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/focus/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-timer-center
+                port:
+                  number: 7900
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/fans/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/dress/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-study-room-center
+                port:
+                  number: 7010
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/dirigibleRoom/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-study-room-center
+                port:
+                  number: 7010
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/courseActivity/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/common/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/clockingActivity
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/circle/list
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-remark-center
+                port:
+                  number: 6200
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/circle/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-study-room-center
+                port:
+                  number: 7010
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/basics/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/award/getMonthData
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/award/getList
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-everyday-center
+                port:
+                  number: 9005
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/award/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-go-target-api-center
+                port:
+                  number: 8088
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/alarmClock/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-target-center
+                port:
+                  number: 9003
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/advertising/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-go-target-api-center
+                port:
+                  number: 8088
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+          - path: /api/accountBook/
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: rpc-account-book-center
+                port:
+                  number: 7600
+            property:
+              ingress.beta.kubernetes.io/url-match-mode: STARTS_WITH
+status:
+  loadBalancer:
+    ingress:
+      - ip: 192.168.1.229
+        hostname: yoyo-hw.luxifakj.cn
+apiVersion: networking.k8s.io/v1
+kind: Ingress

@@ -1,0 +1,402 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: productpage-v1-cf4bd9648-jg4bh
+  generateName: productpage-v1-cf4bd9648-
+  namespace: ns-bookinfo
+  uid: 175f92e0-b836-47e6-aed5-9ad4005ecdb1
+  resourceVersion: '285051'
+  creationTimestamp: '2024-09-11T02:34:57Z'
+  labels:
+    app: productpage
+    pod-template-hash: cf4bd9648
+    security.istio.io/tlsMode: istio
+    service.istio.io/canonical-name: productpage
+    service.istio.io/canonical-revision: v1
+    version: v1
+    virtual-kubelet.io/burst-to-cci: enforce
+  annotations:
+    istio.io/rev: default
+    kubectl.kubernetes.io/default-container: productpage
+    kubectl.kubernetes.io/default-logs-container: productpage
+    prometheus.io/path: /stats/prometheus
+    prometheus.io/port: '15020'
+    prometheus.io/scrape: 'true'
+    sidecar.istio.io/status: '{"initContainers":["istio-init"],"containers":["istio-proxy"],"volumes":["workload-socket","credential-socket","workload-certs","istio-envoy","istio-data","istio-podinfo","istio-token","istiod-ca-cert"],"imagePullSecrets":null,"revision":"default"}'
+  ownerReferences:
+    - apiVersion: apps/v1
+      kind: ReplicaSet
+      name: productpage-v1-cf4bd9648
+      uid: 2affc029-c0a1-47c1-80ff-c83515b1f7b8
+      controller: true
+      blockOwnerDeletion: true
+  managedFields:
+    - manager: kube-controller-manager
+      operation: Update
+      apiVersion: v1
+      time: '2024-09-11T02:34:57Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:metadata:
+          f:generateName: {}
+          f:labels:
+            .: {}
+            f:app: {}
+            f:pod-template-hash: {}
+            f:version: {}
+          f:ownerReferences:
+            .: {}
+            k:{"uid":"2affc029-c0a1-47c1-80ff-c83515b1f7b8"}: {}
+        f:spec:
+          f:containers:
+            k:{"name":"productpage"}:
+              .: {}
+              f:image: {}
+              f:imagePullPolicy: {}
+              f:name: {}
+              f:ports:
+                .: {}
+                k:{"containerPort":9080,"protocol":"TCP"}:
+                  .: {}
+                  f:containerPort: {}
+                  f:protocol: {}
+              f:resources:
+                .: {}
+                f:limits:
+                  .: {}
+                  f:cpu: {}
+                  f:memory: {}
+                f:requests:
+                  .: {}
+                  f:cpu: {}
+                  f:memory: {}
+              f:securityContext:
+                .: {}
+                f:runAsUser: {}
+              f:terminationMessagePath: {}
+              f:terminationMessagePolicy: {}
+              f:volumeMounts:
+                .: {}
+                k:{"mountPath":"/tmp"}:
+                  .: {}
+                  f:mountPath: {}
+                  f:name: {}
+          f:dnsPolicy: {}
+          f:enableServiceLinks: {}
+          f:restartPolicy: {}
+          f:schedulerName: {}
+          f:securityContext: {}
+          f:serviceAccount: {}
+          f:serviceAccountName: {}
+          f:terminationGracePeriodSeconds: {}
+          f:volumes:
+            .: {}
+            k:{"name":"tmp"}:
+              .: {}
+              f:emptyDir: {}
+              f:name: {}
+    - manager: virtual-kubelet
+      operation: Update
+      apiVersion: v1
+      time: '2024-09-11T02:34:57Z'
+      fieldsType: FieldsV1
+      fieldsV1:
+        f:spec:
+          f:tolerations: {}
+spec:
+  volumes:
+    - name: workload-socket
+      emptyDir: {}
+    - name: credential-socket
+      emptyDir: {}
+    - name: workload-certs
+      emptyDir: {}
+    - name: istio-envoy
+      emptyDir:
+        medium: Memory
+    - name: istio-data
+      emptyDir: {}
+    - name: istio-podinfo
+      downwardAPI:
+        items:
+          - path: labels
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels
+          - path: annotations
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.annotations
+        defaultMode: 420
+    - name: istio-token
+      projected:
+        sources:
+          - serviceAccountToken:
+              audience: istio-ca
+              expirationSeconds: 43200
+              path: istio-token
+        defaultMode: 420
+    - name: istiod-ca-cert
+      configMap:
+        name: istio-ca-root-cert
+        defaultMode: 420
+    - name: tmp
+      emptyDir: {}
+    - name: kube-api-access-tmmqk
+      projected:
+        sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              name: kube-root-ca.crt
+              items:
+                - key: ca.crt
+                  path: ca.crt
+          - downwardAPI:
+              items:
+                - path: namespace
+                  fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+        defaultMode: 420
+  initContainers:
+    - name: istio-init
+      image: swr.cn-north-4.myhuaweicloud.com/hfbbg4/proxyv2:1.18.2
+      args:
+        - istio-iptables
+        - '-p'
+        - '15001'
+        - '-z'
+        - '15006'
+        - '-u'
+        - '1337'
+        - '-m'
+        - REDIRECT
+        - '-i'
+        - '*'
+        - '-x'
+        - ''
+        - '-b'
+        - '*'
+        - '-d'
+        - 15090,15021,15020
+        - '--log_output_level=default:info'
+      resources:
+        limits:
+          cpu: '2'
+          memory: 1Gi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      volumeMounts:
+        - name: kube-api-access-tmmqk
+          readOnly: true
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        capabilities:
+          add:
+            - NET_ADMIN
+            - NET_RAW
+          drop:
+            - ALL
+        privileged: false
+        runAsUser: 0
+        runAsGroup: 0
+        runAsNonRoot: false
+        readOnlyRootFilesystem: false
+        allowPrivilegeEscalation: false
+  containers:
+    - name: productpage
+      image: swr.cn-north-4.myhuaweicloud.com/hfbbg4/examples-bookinfo-productpage-v1:1.17.0
+      ports:
+        - containerPort: 9080
+          protocol: TCP
+      resources:
+        limits:
+          cpu: '1'
+          memory: 1Gi
+        requests:
+          cpu: 10m
+          memory: 24Mi
+      volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+        - name: kube-api-access-tmmqk
+          readOnly: true
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        runAsUser: 1000
+    - name: istio-proxy
+      image: swr.cn-north-4.myhuaweicloud.com/hfbbg4/proxyv2:1.18.2
+      args:
+        - proxy
+        - sidecar
+        - '--domain'
+        - $(POD_NAMESPACE).svc.cluster.local
+        - '--proxyLogLevel=warning'
+        - '--proxyComponentLogLevel=misc:error'
+        - '--log_output_level=default:info'
+      ports:
+        - name: http-envoy-prom
+          containerPort: 15090
+          protocol: TCP
+      env:
+        - name: JWT_POLICY
+          value: third-party-jwt
+        - name: PILOT_CERT_PROVIDER
+          value: istiod
+        - name: CA_ADDR
+          value: istiod.istio-system.svc:15012
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: INSTANCE_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        - name: SERVICE_ACCOUNT
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.serviceAccountName
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: ISTIO_CPU_LIMIT
+          valueFrom:
+            resourceFieldRef:
+              resource: limits.cpu
+              divisor: '0'
+        - name: PROXY_CONFIG
+          value: |
+            {}
+        - name: ISTIO_META_POD_PORTS
+          value: |-
+            [
+                {"containerPort":9080,"protocol":"TCP"}
+            ]
+        - name: ISTIO_META_APP_CONTAINERS
+          value: productpage
+        - name: ISTIO_META_CLUSTER_ID
+          value: Kubernetes
+        - name: ISTIO_META_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: ISTIO_META_INTERCEPTION_MODE
+          value: REDIRECT
+        - name: ISTIO_META_WORKLOAD_NAME
+          value: productpage-v1
+        - name: ISTIO_META_OWNER
+          value: kubernetes://apis/apps/v1/namespaces/ns-bookinfo/deployments/productpage-v1
+        - name: ISTIO_META_MESH_ID
+          value: cluster.local
+        - name: TRUST_DOMAIN
+          value: cluster.local
+      resources:
+        limits:
+          cpu: '2'
+          memory: 1Gi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+      volumeMounts:
+        - name: workload-socket
+          mountPath: /var/run/secrets/workload-spiffe-uds
+        - name: credential-socket
+          mountPath: /var/run/secrets/credential-uds
+        - name: workload-certs
+          mountPath: /var/run/secrets/workload-spiffe-credentials
+        - name: istiod-ca-cert
+          mountPath: /var/run/secrets/istio
+        - name: istio-data
+          mountPath: /var/lib/istio/data
+        - name: istio-envoy
+          mountPath: /etc/istio/proxy
+        - name: istio-token
+          mountPath: /var/run/secrets/tokens
+        - name: istio-podinfo
+          mountPath: /etc/istio/pod
+        - name: kube-api-access-tmmqk
+          readOnly: true
+          mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      readinessProbe:
+        httpGet:
+          path: /healthz/ready
+          port: 15021
+          scheme: HTTP
+        initialDelaySeconds: 1
+        timeoutSeconds: 3
+        periodSeconds: 2
+        successThreshold: 1
+        failureThreshold: 30
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      imagePullPolicy: IfNotPresent
+      securityContext:
+        capabilities:
+          drop:
+            - ALL
+        privileged: false
+        runAsUser: 1337
+        runAsGroup: 1337
+        runAsNonRoot: true
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+  restartPolicy: Always
+  terminationGracePeriodSeconds: 30
+  dnsPolicy: ClusterFirst
+  nodeSelector:
+    bursting.cci.io/node-type: virtual-kubelet
+  serviceAccountName: bookinfo-productpage
+  serviceAccount: bookinfo-productpage
+  nodeName: virtual-kubelet
+  securityContext: {}
+  schedulerName: default-scheduler
+  tolerations:
+    - key: node.kubernetes.io/not-ready
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+    - key: node.kubernetes.io/unreachable
+      operator: Exists
+      effect: NoExecute
+    - key: virtual-kubelet.io/provider
+      operator: Equal
+      value: huawei
+      effect: NoSchedule
+  priority: 0
+  dnsConfig:
+    options:
+      - name: single-request-reopen
+        value: ''
+      - name: timeout
+        value: '2'
+  enableServiceLinks: true
+  preemptionPolicy: PreemptLowerPriority
+status:
+  phase: Pending
+  conditions:
+    - type: PodScheduled
+      status: 'True'
+      lastProbeTime: null
+      lastTransitionTime: '2024-09-11T02:34:57Z'
+  qosClass: Burstable
