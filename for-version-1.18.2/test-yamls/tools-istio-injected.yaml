@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: tools
+  name: tools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tools
+  template:
+    metadata:
+      labels:
+        app: tools
+        sidecar.istio.io/inject: 'true'
+    spec:
+      containers:
+      - name: tools
+        image: swr.cn-north-4.myhuaweicloud.com/hfbbg4/tools-k8s:v0.2
+        imagePullPolicy: IfNotPresent
+        # command: ["sh","-c",'which sleep; sleep 99998; sleep 779;']
+        # command: ["sh","-c",'nginx -g "daemon off;"']

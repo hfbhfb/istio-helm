@@ -8,6 +8,21 @@
 
 4. make uninstall-all  # 卸载全部
 
+
+
+
+
+## 搜索
+1.18.2版本 istio 和 国内镜像的bookinfo                      23434skdfj
+
+
+
+
+
+
+
+
+
 ## helm安装istio 
 https://istio.io/latest/docs/setup/install/helm/
 

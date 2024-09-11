@@ -90,6 +90,7 @@ repoadd:
 	helm repo list
 	helm repo update istio
 	helm search repo istio -l
+	helm search repo istio -l |grep 1.18.2
 
 all:
 	@echo "all"
